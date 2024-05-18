@@ -1,0 +1,2 @@
+from Repositorio.RepositorioProducto import RepositorioProducto
+from Modelos.Producto import Producto
