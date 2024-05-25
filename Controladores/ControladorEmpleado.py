@@ -15,7 +15,7 @@ class ControladorEmpleado():
     def update(self,id,infoEmpleado):
 
         empleadoActual = Empleado(self.repositorioEmpleado.findById(id))
-        empleadoActual.cedula= infoEmpleado["cedula"]
+        empleadoActual.identificacion = infoEmpleado["identificacion"]
         empleadoActual.nombre = infoEmpleado["nombre"]
         empleadoActual.apellido = infoEmpleado["apellido"]
         empleadoActual.direccion = infoEmpleado["direccion"]
