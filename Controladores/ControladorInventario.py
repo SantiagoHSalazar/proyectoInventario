@@ -5,6 +5,7 @@ from Repositorio.RepositorioInventario import RepositorioInventario
 from Repositorio.RepositorioEmpleado import RepositorioEmpleado
 from Repositorio.RepositorioProducto import RepositorioProducto
 
+
 class ControladorInventario():
     def __init__(self):
         self.repositorioInventario = RepositorioInventario()

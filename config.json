@@ -2,6 +2,6 @@
 "url-backend": "127.0.0.1",
 "port": 9999,
 
-"data-db-connection": "mongodb+srv://santiagohsalazar:ErgF8KesKgJIcVA8@cluster0.qfgmf.mongodb.net/NOMBREBASEDEDATOS?retryWrites=true&w=majority",
-"name-db": "NOMBREBASEDEDATOS"
+"data-db-connection": "mongodb+srv://santiagohsalazar:CS8wMtqvVPC8S2jC@cluster0.4uahitk.mongodb.net/bd-inventario-almacen?retryWrites=true&w=majority&appName=Cluster0",
+"name-db": "bd-inventario-almacen"
 }

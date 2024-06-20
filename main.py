@@ -11,13 +11,8 @@ from Controladores.ControladorInventario import ControladorInventario
 import pymongo
 import certifi
 
-app=Flask( __name__ )
+app = Flask(__name__)
 cors = CORS(app)
-ca = certifi.where()
-
-client = pymongo.MongoClient("mongodb+srv://santiagohsalazar:ErgF8KesKgJIcVA8@cluster0.qfgmf.mongodb.net/NOMBREBASEDEDATOS?retryWrites=true&w=majority",tlsCAFile=ca)
-db = client.test
-print(db)
 
 miControladorEmpleado = ControladorEmpleado()
 miControladorCategoria = ControladorCategoria()
@@ -25,61 +20,72 @@ miControladorProducto = ControladorProducto()
 miControladorInventario = ControladorInventario()
 
 
-@app.route("/emplado",methods=['GET'])
-def getEmplado():
-    json=miControladorEmpleado.index()
+@app.route("/empleado", methods=['GET'])
+def getEmpleados():
+    json = miControladorEmpleado.index()
     return jsonify(json)
 
-@app.route("/empleado",methods=['POST'])
-def crearEmplado():
+
+@app.route("/empleado", methods=['POST'])
+def crearEmpleado():
     data = request.get_json()
-    json=miControladorEmpleado.create(data)
+    json = miControladorEmpleado.create(data)
     return jsonify(json)
 
-@app.route("/empleado/<string:id>",methods=['GET'])
+
+@app.route("/empleado/<string:id>", methods=['GET'])
 def getEmpleado(id):
-    json=miControladorEmpleado.show(id)
+    json = miControladorEmpleado.show(id)
     return jsonify(json)
 
-@app.route("/empleado/<string:id>",methods=['PUT'])
+
+@app.route("/empleado/<string:id>", methods=['PUT'])
 def modificarEmpleado(id):
     data = request.get_json()
-    json=miControladorEmpleado.update(id,data)
+    json = miControladorEmpleado.update(id, data)
     return jsonify(json)
 
-@app.route("/empleado/<string:id>",methods=['DELETE'])
+
+@app.route("/empleado/<string:id>", methods=['DELETE'])
 def eliminarEmpleado(id):
-    json=miControladorEmpleado.delete(id)
+    json = miControladorEmpleado.delete(id)
     return jsonify(json)
+
 
 ####################################################################################
 
-@app.route("/categoria/<string:id>",methods=['GET'])
+@app.route("/categoria", methods=['GET'])
 def getCategorias():
     json = miControladorCategoria.index()
     return jsonify(json)
 
-@app.route("/categoria/<string:id>",methods=['GET'])
+
+@app.route("/categoria/<string:id>", methods=['GET'])
 def getCategoria(id):
-    json=miControladorCategoria.show(id)
+    json = miControladorCategoria.show(id)
     return jsonify(json)
 
-@app.route("/categoria/<string:id>",methods=['POST'])
+
+@app.route("/categoria", methods=['POST'])
 def crearCategoria():
     data = request.get_json()
     json = miControladorCategoria.create(data)
     return jsonify(json)
 
-@app.route("/categoria/<string:id>",methods=['PUT'])
+
+@app.route("/categoria/<string:id>", methods=['PUT'])
 def modificarCategoria(id):
     data = request.get_json()
     json = miControladorCategoria.update(id, data)
     return jsonify(json)
 
+
 @app.route("/categoria/<string:id>", methods=['DELETE'])
 def eliminarCategoria(id):
     json = miControladorCategoria.delete(id)
     return jsonify(json)
+
+
 #######################################################################################
 
 @app.route("/producto", methods=['GET'])
@@ -87,10 +93,12 @@ def getProductos():
     json = miControladorProducto.index()
     return jsonify(json)
 
+
 @app.route("/producto/<string:id>", methods=['GET'])
 def getProducto(id):
-    json = miControladorProducto.show(id)
+    json = miControladorProducto.Show(id)
     return jsonify(json)
+
 
 @app.route("/producto", methods=['POST'])
 def crearProducto():
@@ -98,21 +106,26 @@ def crearProducto():
     json = miControladorProducto.create(data)
     return jsonify(json)
 
+
 @app.route("/producto/<string:id>", methods=['PUT'])
 def modificarProducto(id):
     data = request.get_json()
     json = miControladorProducto.update(id, data)
     return jsonify(json)
 
+
 @app.route("/producto/<string:id>", methods=['DELETE'])
 def eliminarProducto(id):
     json = miControladorProducto.delete(id)
     return jsonify(json)
 
+
 @app.route("/producto/<string:id>/categoria/<string:id_categoria>", methods=['PUT'])
 def asignarCategoriaAProducto(id, id_categoria):
     json = miControladorProducto.asignarCategoria(id, id_categoria)
     return jsonify(json)
+
+
 #######################################################################################################
 
 @app.route("/inventario", methods=['GET'])
@@ -126,29 +139,35 @@ def getInventario(id):
     json = miControladorInventario.show(id)
     return jsonify(json)
 
-@app.route("/inventario/empleado/<string:identificacion>/producto/<string:id_producto>", methods=['POST'])
-def crearInventario(identificacion, id_producto):
+
+@app.route("/inventario/empleado/<string:id_empleado>/producto/<string:id_producto>", methods=['POST'])
+def crearInventario(id_empleado, id_producto):
     data = request.get_json()
-    json = miControladorInventario.create(data, identificacion, id_producto)
+    json = miControladorInventario.create(data, id_empleado, id_producto)
     return jsonify(json)
 
 
-@app.route("/inventario/<string:id_inventario>/empleado/<string:identificacion>/producto/<string:id_producto>", methods=['PUT'])
-def modificarInventario(id_inventario, identificacion, id_producto):
+@app.route("/inventario/<string:id_inventario>/empleado/<string:id_empleado>/producto/<string:id_producto>",
+           methods=['PUT'])
+def modificarInventario(id_inventario, id_empleado, id_producto):
     data = request.get_json()
-    json = miControladorInventario.update(id_inventario, data, identificacion, id_producto)
+    json = miControladorInventario.update(id_inventario, data, id_empleado, id_producto)
     return jsonify(json)
+
 
 @app.route("/inventario/<string:id_inventario>", methods=['DELETE'])
 def eliminarInventario(id_inventario):
     json = miControladorInventario.delete(id_inventario)
     return jsonify(json)
 
+
 @app.route("/", methods=['GET'])
 def test():
     json = {}
-    json["message"]="Server running ..."
+    json["message"] = "Server running ..."
     return jsonify(json)
+
+
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)

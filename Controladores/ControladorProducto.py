@@ -8,12 +8,12 @@ class ControladorProducto:
         self.repositorioProducto = RepositorioProducto()
         self.repositorioCategoria = RepositorioCategoria()
 
-    def __index__(self):
+    def index(self):
         return self.repositorioProducto.findAll()
 
     def create(self, infoProducto):
         nuevoProducto = Producto(infoProducto)
-        return self.repositorioProducto.save()
+        return self.repositorioProducto.save(nuevoProducto)
 
     def Show(self, id):
         eLProducto = Producto(self.repositorioProducto.findById(id))
